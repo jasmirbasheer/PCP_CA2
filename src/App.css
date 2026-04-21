@@ -75,7 +75,7 @@ a {
 
 .nav-link.active {
   background: var(--accent-soft);
-  color: #10352f;
+  color: #e5ff00;
   font-weight: 600;
 }
 
