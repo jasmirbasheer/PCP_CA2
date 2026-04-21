@@ -1,12 +1,16 @@
 import { useEffect, useReducer } from "react";
 import { getDataset, getToken } from "../api/api";
 import OrdersReducer, { initialFilterState } from "../reducer/OrdersReducer";
-import { OrdersContext } from "./ordersContextObject";
+import { OrdersContext } from "./ordersContextStore";
 import {
   normalizeStatus,
   sanitizeOrder,
   sanitizeOrders,
 } from "../utils/sanitizeOrders";
+
+const STUDENT_ID = "E0123008";
+const PASSWORD = "445291";
+const DATASET_SET = "setA";
 
 const initialState = {
   orders: [],
@@ -20,10 +24,10 @@ export const OrdersProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      dispatch({ type: "SET_LOADING", payload: true });
-
       try {
-        const tokenRes = await getToken("E0123003", "686996", "SETA");
+        dispatch({ type: "SET_LOADING", payload: true });
+
+        const tokenRes = await getToken(STUDENT_ID, PASSWORD, DATASET_SET);
         const dataset = await getDataset(tokenRes.token, tokenRes.dataUrl);
 
         const rawOrders = Array.isArray(dataset)
